@@ -7,7 +7,7 @@ import 'package:iflux_shot/views/address.dart';
 import 'package:iflux_shot/views/main_home.dart';
 import 'package:iflux_shot/views/more.dart';
 import 'package:iflux_shot/views/wallet.dart';
-import 'package:provider_architecture/_viewmodel_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -22,11 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
     MoreScreen()
   ];
 
+  
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<HomeViewModel>.withConsumer(
-      viewModelBuilder: () => HomeViewModel(),
-      builder: (context, model, _) => Scaffold(
+    final model = Provider.of<HomeViewModel>(context);
+    return Scaffold(
         backgroundColor: white,
         bottomNavigationBar: BottomNavigationBar(
           // selectedItemColor: blue,
@@ -58,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: (value) => model.onItemTapped(value),
         ),
         body: _widgetOptions.elementAt(model.selectedIndex),
-      ),
     );
   }
 }
